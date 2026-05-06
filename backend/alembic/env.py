@@ -14,13 +14,14 @@ if config.config_file_name is not None:
 
 # Import all models so Alembic can detect them
 from app.core.database import Base  # noqa: E402
+from app.core.config import settings  # noqa: E402
 from app.models import user, itinerary, activity, community, membership, review  # noqa: E402
 
 target_metadata = Base.metadata
 
 
 def run_migrations_offline() -> None:
-    url = config.get_main_option("sqlalchemy.url")
+    url = settings.DATABASE_URL
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -39,7 +40,7 @@ def do_run_migrations(connection: Connection) -> None:
 
 async def run_async_migrations() -> None:
     connectable = async_engine_from_config(
-        config.get_section(config.config_ini_section, {}),
+        {**config.get_section(config.config_ini_section, {}), "sqlalchemy.url": settings.DATABASE_URL},
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )

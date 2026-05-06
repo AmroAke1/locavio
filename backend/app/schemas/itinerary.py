@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date as Date, datetime
 
 from pydantic import BaseModel, ConfigDict
 
@@ -13,7 +13,7 @@ class ItineraryCreate(BaseModel):
     location: str | None = None
     lat: float | None = None
     lng: float | None = None
-    date: date | None = None
+    date: Date | None = None
     status: ItineraryStatus = ItineraryStatus.draft
 
 
@@ -24,14 +24,14 @@ class ItineraryUpdate(BaseModel):
     location: str | None = None
     lat: float | None = None
     lng: float | None = None
-    date: date | None = None
+    date: Date | None = None
     status: ItineraryStatus | None = None
 
 
 class ItineraryGenerateRequest(BaseModel):
     location: str
     purpose: ItineraryPurpose = ItineraryPurpose.tourism
-    date: date | None = None
+    date: Date | None = None
     preferences: dict = {}
 
 
@@ -46,7 +46,7 @@ class ItineraryResponse(BaseModel):
     location: str | None
     lat: float | None
     lng: float | None
-    date: date | None
+    date: Date | None
     status: ItineraryStatus
     generated_by_ai: bool
     created_at: datetime
