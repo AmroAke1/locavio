@@ -7,6 +7,10 @@ engine = create_async_engine(
     settings.DATABASE_URL,
     echo=False,
     pool_pre_ping=True,
+    connect_args={
+        "statement_cache_size": 0,   # required for Supabase transaction-mode pooler
+        "timeout": 10,               # fail fast instead of hanging indefinitely
+    },
 )
 
 AsyncSessionLocal = async_sessionmaker(

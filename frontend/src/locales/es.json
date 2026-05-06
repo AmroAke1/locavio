@@ -88,7 +88,17 @@
     "activities": "Actividades",
     "no_communities": "No se encontraron comunidades",
     "your_communities": "Tus comunidades",
-    "coming_soon": "Próximamente"
+    "coming_soon": "Próximamente",
+    "name_label": "Nombre de la comunidad",
+    "name_placeholder": "ej. Foodies de Estambul",
+    "category_label": "Categoría",
+    "category_placeholder": "Selecciona una categoría",
+    "location_label": "Ubicación",
+    "location_placeholder": "ej. Estambul, Turquía",
+    "description_label": "Descripción",
+    "description_placeholder": "¿De qué trata esta comunidad?",
+    "cover_image_label": "URL de imagen de portada (opcional)",
+    "create_btn": "Crear comunidad"
   },
   "auth": {
     "welcome": "Bienvenido de vuelta",

@@ -19,6 +19,7 @@ import ItineraryList from '@/pages/ItineraryList'
 import ItineraryNew from '@/pages/ItineraryNew'
 import ItineraryDetail from '@/pages/ItineraryDetail'
 import CommunityList from '@/pages/CommunityList'
+import CommunityNew from '@/pages/CommunityNew'
 import CommunityDetail from '@/pages/CommunityDetail'
 import Profile from '@/pages/Profile'
 
@@ -70,6 +71,7 @@ function App() {
                 <Route path="/itineraries/new" element={<ItineraryNew />} />
                 <Route path="/itineraries/:id" element={<ItineraryDetail />} />
                 <Route path="/communities" element={<CommunityList />} />
+                <Route path="/communities/new" element={<CommunityNew />} />
                 <Route path="/communities/:id" element={<CommunityDetail />} />
                 <Route path="/profile" element={<Profile />} />
               </Route>
