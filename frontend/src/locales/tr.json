@@ -1,0 +1,140 @@
+{
+  "nav": {
+    "dashboard": "Panel",
+    "itineraries": "Güzergahlar",
+    "communities": "Topluluklar",
+    "profile": "Profil",
+    "logout": "Çıkış yap"
+  },
+  "landing": {
+    "hero_title": "Mükemmel gününü planla, her yerde.",
+    "hero_sub": "Turistler ve yereller için yapay zeka destekli güzergahlar.",
+    "cta_start": "Başla",
+    "cta_how": "Nasıl çalışır",
+    "features_title": "Keşfetmek için ihtiyacın olan her şey",
+    "feature_ai_title": "Yapay Zeka Güzergahları",
+    "feature_ai_desc": "Saniyeler içinde tam gün planı oluştur.",
+    "feature_map_title": "Harita Görünümü",
+    "feature_map_desc": "Tüm seyahatini interaktif haritada gör.",
+    "feature_community_title": "Topluluklar",
+    "feature_community_desc": "Yereller ve gezginlerle bağlantı kur.",
+    "how_title": "Nasıl çalışır",
+    "step1_title": "Nerede olduğunu söyle",
+    "step1_desc": "Konumunu veya hedefini gir.",
+    "step2_title": "İlgi alanlarını seç",
+    "step2_desc": "Tarzına uyan kategorileri seç.",
+    "step3_title": "Gününü keşfet",
+    "step3_desc": "Kişiselleştirilmiş güzergahını hemen al.",
+    "cta_bottom": "Keşfetmeye hazır mısın?",
+    "cta_bottom_sub": "Locavio kullanan binlerce gezgine katıl."
+  },
+  "itinerary": {
+    "new": "Yeni güzergah",
+    "generate": "Yapay Zeka ile Oluştur",
+    "manual": "Manuel oluştur",
+    "generating": "Mükemmel günün hazırlanıyor...",
+    "add_activity": "Aktivite ekle",
+    "location_placeholder": "Şehir veya yer girin",
+    "purpose_label": "Amaç",
+    "date_label": "Tarih",
+    "preferences_label": "Ne seversin?",
+    "title_label": "Başlık",
+    "description_label": "Açıklama",
+    "generate_btn": "Günümü oluştur",
+    "create_btn": "Güzergah oluştur",
+    "status": {
+      "draft": "Taslak",
+      "upcoming": "Yaklaşan",
+      "active": "Aktif",
+      "completed": "Tamamlandı",
+      "wishlist": "İstek listesi"
+    },
+    "purpose": {
+      "tourism": "Turizm",
+      "work": "İş",
+      "local_life": "Yerel yaşam",
+      "social": "Sosyal"
+    },
+    "ai_badge": "Yapay Zeka Oluşturdu",
+    "no_activities": "Henüz aktivite yok",
+    "no_itineraries": "İlk gününü planlamaya başla",
+    "upcoming_trips": "Yaklaşan seyahatleriniz",
+    "all": "Tümü",
+    "reviews": "Yorumlar",
+    "add_review": "Yorum ekle",
+    "select_activity": "Yorum için aktivite seçin",
+    "avg_rating": "Ortalama puan"
+  },
+  "activity": {
+    "category": {
+      "food": "Yemek",
+      "culture": "Kültür",
+      "sport": "Spor",
+      "social": "Sosyal",
+      "nature": "Doğa",
+      "shopping": "Alışveriş"
+    },
+    "duration": "dk",
+    "order": "Durak"
+  },
+  "community": {
+    "join": "Katıl",
+    "leave": "Ayrıl",
+    "members": "Üyeler",
+    "create": "Topluluk oluştur",
+    "near_you": "Yakınındaki topluluklar",
+    "search_placeholder": "Topluluk ara...",
+    "about": "Hakkında",
+    "activities": "Aktiviteler",
+    "no_communities": "Topluluk bulunamadı",
+    "your_communities": "Topluluklarınız",
+    "coming_soon": "Çok yakında"
+  },
+  "auth": {
+    "welcome": "Tekrar hoş geldiniz",
+    "subtitle": "Bir sonraki maceranı planlamak için giriş yap",
+    "sign_google": "Google ile giriş yap",
+    "sign_apple": "Apple ile giriş yap",
+    "or": "veya"
+  },
+  "onboarding": {
+    "step": "Adım {{current}} / {{total}}",
+    "where_title": "Neredesin?",
+    "where_sub": "Kişiselleştirilmiş öneriler için konumunu gir.",
+    "interests_title": "Ne seversin?",
+    "interests_sub": "Tarzına uyan kategorileri seç.",
+    "language_title": "Dilini seç",
+    "language_sub": "Tercih ettiğin dili seç.",
+    "next": "İleri",
+    "back": "Geri",
+    "finish": "Bitir"
+  },
+  "profile": {
+    "title": "Profilim",
+    "name_label": "Ad",
+    "location_label": "Konum",
+    "language_label": "Dil",
+    "preferences_label": "İlgi alanlarım",
+    "save": "Değişiklikleri kaydet",
+    "danger_zone": "Tehlikeli bölge",
+    "delete_account": "Hesabı sil",
+    "delete_confirm": "Emin misin? Bu işlem geri alınamaz.",
+    "itineraries_count": "Güzergahlar",
+    "communities_count": "Topluluklar"
+  },
+  "common": {
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "loading": "Yükleniyor...",
+    "error": "Bir şeyler yanlış gitti",
+    "empty": "Henüz burada bir şey yok",
+    "close": "Kapat",
+    "confirm": "Onayla",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "page": "Sayfa",
+    "of": "/"
+  }
+}

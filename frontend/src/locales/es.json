@@ -1,0 +1,140 @@
+{
+  "nav": {
+    "dashboard": "Panel",
+    "itineraries": "Itinerarios",
+    "communities": "Comunidades",
+    "profile": "Perfil",
+    "logout": "Cerrar sesión"
+  },
+  "landing": {
+    "hero_title": "Planifica tu día perfecto, en cualquier lugar.",
+    "hero_sub": "Itinerarios con IA para turistas y locales.",
+    "cta_start": "Comenzar",
+    "cta_how": "Cómo funciona",
+    "features_title": "Todo lo que necesitas para explorar",
+    "feature_ai_title": "Itinerarios IA",
+    "feature_ai_desc": "Genera un plan de día completo en segundos.",
+    "feature_map_title": "Vista de mapa",
+    "feature_map_desc": "Ve todo tu viaje en un mapa interactivo.",
+    "feature_community_title": "Comunidades",
+    "feature_community_desc": "Conecta con locales y viajeros.",
+    "how_title": "Cómo funciona",
+    "step1_title": "Dinos dónde estás",
+    "step1_desc": "Ingresa tu ubicación o destino.",
+    "step2_title": "Elige tus intereses",
+    "step2_desc": "Selecciona categorías que coincidan con tu estilo.",
+    "step3_title": "Explora tu día",
+    "step3_desc": "Obtén un itinerario personalizado al instante.",
+    "cta_bottom": "¿Listo para explorar?",
+    "cta_bottom_sub": "Únete a miles de viajeros usando Locavio."
+  },
+  "itinerary": {
+    "new": "Nuevo itinerario",
+    "generate": "Generar con IA",
+    "manual": "Crear manualmente",
+    "generating": "Creando tu día perfecto...",
+    "add_activity": "Añadir actividad",
+    "location_placeholder": "Ingresa una ciudad o lugar",
+    "purpose_label": "Propósito",
+    "date_label": "Fecha",
+    "preferences_label": "¿Qué te gusta?",
+    "title_label": "Título",
+    "description_label": "Descripción",
+    "generate_btn": "Generar mi día",
+    "create_btn": "Crear itinerario",
+    "status": {
+      "draft": "Borrador",
+      "upcoming": "Próximo",
+      "active": "Activo",
+      "completed": "Completado",
+      "wishlist": "Lista de deseos"
+    },
+    "purpose": {
+      "tourism": "Turismo",
+      "work": "Trabajo",
+      "local_life": "Vida local",
+      "social": "Social"
+    },
+    "ai_badge": "Generado por IA",
+    "no_activities": "Sin actividades todavía",
+    "no_itineraries": "Empieza a planificar tu primer día",
+    "upcoming_trips": "Tus próximos viajes",
+    "all": "Todos",
+    "reviews": "Reseñas",
+    "add_review": "Añadir reseña",
+    "select_activity": "Selecciona una actividad para reseñar",
+    "avg_rating": "Calificación promedio"
+  },
+  "activity": {
+    "category": {
+      "food": "Gastronomía",
+      "culture": "Cultura",
+      "sport": "Deporte",
+      "social": "Social",
+      "nature": "Naturaleza",
+      "shopping": "Compras"
+    },
+    "duration": "min",
+    "order": "Parada"
+  },
+  "community": {
+    "join": "Unirse",
+    "leave": "Salir",
+    "members": "Miembros",
+    "create": "Crear comunidad",
+    "near_you": "Comunidades cerca de ti",
+    "search_placeholder": "Buscar comunidades...",
+    "about": "Acerca de",
+    "activities": "Actividades",
+    "no_communities": "No se encontraron comunidades",
+    "your_communities": "Tus comunidades",
+    "coming_soon": "Próximamente"
+  },
+  "auth": {
+    "welcome": "Bienvenido de vuelta",
+    "subtitle": "Inicia sesión para planificar tu próxima aventura",
+    "sign_google": "Iniciar con Google",
+    "sign_apple": "Iniciar con Apple",
+    "or": "o"
+  },
+  "onboarding": {
+    "step": "Paso {{current}} de {{total}}",
+    "where_title": "¿Dónde estás?",
+    "where_sub": "Dinos tu ubicación para sugerencias personalizadas.",
+    "interests_title": "¿Qué te gusta?",
+    "interests_sub": "Elige categorías que coincidan con tu estilo.",
+    "language_title": "Elige tu idioma",
+    "language_sub": "Selecciona el idioma que prefieras.",
+    "next": "Siguiente",
+    "back": "Atrás",
+    "finish": "Finalizar"
+  },
+  "profile": {
+    "title": "Mi perfil",
+    "name_label": "Nombre",
+    "location_label": "Ubicación",
+    "language_label": "Idioma",
+    "preferences_label": "Mis intereses",
+    "save": "Guardar cambios",
+    "danger_zone": "Zona de peligro",
+    "delete_account": "Eliminar cuenta",
+    "delete_confirm": "¿Estás seguro? Esta acción no se puede deshacer.",
+    "itineraries_count": "Itinerarios",
+    "communities_count": "Comunidades"
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "empty": "Nada aquí todavía",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "page": "Página",
+    "of": "de"
+  }
+}

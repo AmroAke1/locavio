@@ -1,0 +1,141 @@
+{
+  "dir": "rtl",
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "itineraries": "الرحلات",
+    "communities": "المجتمعات",
+    "profile": "الملف الشخصي",
+    "logout": "تسجيل الخروج"
+  },
+  "landing": {
+    "hero_title": "خطط ليومك المثالي، في أي مكان.",
+    "hero_sub": "مسارات مدعومة بالذكاء الاصطناعي للسياح والمقيمين.",
+    "cta_start": "ابدأ الآن",
+    "cta_how": "كيف يعمل",
+    "features_title": "كل ما تحتاجه للاستكشاف",
+    "feature_ai_title": "مسارات ذكية",
+    "feature_ai_desc": "أنشئ خطة يوم كاملة في ثوانٍ.",
+    "feature_map_title": "عرض الخريطة",
+    "feature_map_desc": "شاهد رحلتك بأكملها على خريطة تفاعلية.",
+    "feature_community_title": "المجتمعات",
+    "feature_community_desc": "تواصل مع السكان المحليين والمسافرين.",
+    "how_title": "كيف يعمل",
+    "step1_title": "أخبرنا أين أنت",
+    "step1_desc": "أدخل موقعك أو وجهتك.",
+    "step2_title": "اختر اهتماماتك",
+    "step2_desc": "اختر الفئات التي تناسب أسلوبك.",
+    "step3_title": "استكشف يومك",
+    "step3_desc": "احصل على مسار مخصص فوراً.",
+    "cta_bottom": "هل أنت مستعد للاستكشاف؟",
+    "cta_bottom_sub": "انضم إلى آلاف المسافرين الذين يستخدمون Locavio."
+  },
+  "itinerary": {
+    "new": "مسار جديد",
+    "generate": "إنشاء بالذكاء الاصطناعي",
+    "manual": "إنشاء يدوي",
+    "generating": "جارٍ تصميم يومك المثالي...",
+    "add_activity": "إضافة نشاط",
+    "location_placeholder": "أدخل مدينة أو مكاناً",
+    "purpose_label": "الغرض",
+    "date_label": "التاريخ",
+    "preferences_label": "ما الذي تحب؟",
+    "title_label": "العنوان",
+    "description_label": "الوصف",
+    "generate_btn": "إنشاء يومي",
+    "create_btn": "إنشاء المسار",
+    "status": {
+      "draft": "مسودة",
+      "upcoming": "قادم",
+      "active": "نشط",
+      "completed": "مكتمل",
+      "wishlist": "قائمة الرغبات"
+    },
+    "purpose": {
+      "tourism": "سياحة",
+      "work": "عمل",
+      "local_life": "حياة محلية",
+      "social": "اجتماعي"
+    },
+    "ai_badge": "مُنشأ بالذكاء الاصطناعي",
+    "no_activities": "لا توجد أنشطة بعد",
+    "no_itineraries": "ابدأ بتخطيط يومك الأول",
+    "upcoming_trips": "رحلاتك القادمة",
+    "all": "الكل",
+    "reviews": "التقييمات",
+    "add_review": "إضافة تقييم",
+    "select_activity": "اختر نشاطاً للتقييم",
+    "avg_rating": "متوسط التقييم"
+  },
+  "activity": {
+    "category": {
+      "food": "طعام",
+      "culture": "ثقافة",
+      "sport": "رياضة",
+      "social": "اجتماعي",
+      "nature": "طبيعة",
+      "shopping": "تسوق"
+    },
+    "duration": "دقيقة",
+    "order": "محطة"
+  },
+  "community": {
+    "join": "انضم",
+    "leave": "مغادرة",
+    "members": "الأعضاء",
+    "create": "إنشاء مجتمع",
+    "near_you": "المجتمعات بالقرب منك",
+    "search_placeholder": "ابحث عن مجتمعات...",
+    "about": "عن المجتمع",
+    "activities": "الأنشطة",
+    "no_communities": "لم يتم العثور على مجتمعات",
+    "your_communities": "مجتمعاتك",
+    "coming_soon": "قريباً"
+  },
+  "auth": {
+    "welcome": "أهلاً بعودتك",
+    "subtitle": "سجّل الدخول لتخطيط مغامرتك القادمة",
+    "sign_google": "تسجيل الدخول بـ Google",
+    "sign_apple": "تسجيل الدخول بـ Apple",
+    "or": "أو"
+  },
+  "onboarding": {
+    "step": "الخطوة {{current}} من {{total}}",
+    "where_title": "أين أنت؟",
+    "where_sub": "أخبرنا بموقعك للحصول على اقتراحات مخصصة.",
+    "interests_title": "ما الذي تحب؟",
+    "interests_sub": "اختر الفئات التي تناسب أسلوب سفرك.",
+    "language_title": "اختر لغتك",
+    "language_sub": "اختر اللغة التي تفضلها.",
+    "next": "التالي",
+    "back": "رجوع",
+    "finish": "إنهاء"
+  },
+  "profile": {
+    "title": "ملفي الشخصي",
+    "name_label": "الاسم",
+    "location_label": "الموقع",
+    "language_label": "اللغة",
+    "preferences_label": "اهتماماتي",
+    "save": "حفظ التغييرات",
+    "danger_zone": "منطقة الخطر",
+    "delete_account": "حذف الحساب",
+    "delete_confirm": "هل أنت متأكد؟ لا يمكن التراجع عن هذا الإجراء.",
+    "itineraries_count": "المسارات",
+    "communities_count": "المجتمعات"
+  },
+  "common": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "loading": "جارٍ التحميل...",
+    "error": "حدث خطأ ما",
+    "empty": "لا يوجد شيء هنا بعد",
+    "close": "إغلاق",
+    "confirm": "تأكيد",
+    "search": "بحث",
+    "filter": "تصفية",
+    "page": "صفحة",
+    "of": "من"
+  }
+}

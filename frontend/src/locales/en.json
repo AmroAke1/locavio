@@ -1,0 +1,140 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "itineraries": "Itineraries",
+    "communities": "Communities",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "landing": {
+    "hero_title": "Plan your perfect day, anywhere.",
+    "hero_sub": "AI-powered itineraries for tourists and locals.",
+    "cta_start": "Get started",
+    "cta_how": "See how it works",
+    "features_title": "Everything you need to explore",
+    "feature_ai_title": "AI Itineraries",
+    "feature_ai_desc": "Generate a full day plan in seconds with our AI engine.",
+    "feature_map_title": "Map View",
+    "feature_map_desc": "See your entire trip on an interactive map.",
+    "feature_community_title": "Communities",
+    "feature_community_desc": "Connect with locals and fellow travelers.",
+    "how_title": "How it works",
+    "step1_title": "Tell us where you are",
+    "step1_desc": "Enter your location or destination.",
+    "step2_title": "Pick your interests",
+    "step2_desc": "Choose categories that match your style.",
+    "step3_title": "Explore your day",
+    "step3_desc": "Get a personalized itinerary instantly.",
+    "cta_bottom": "Ready to explore?",
+    "cta_bottom_sub": "Join thousands of travelers using Locavio."
+  },
+  "itinerary": {
+    "new": "New itinerary",
+    "generate": "Generate with AI",
+    "manual": "Create manually",
+    "generating": "Crafting your perfect day...",
+    "add_activity": "Add activity",
+    "location_placeholder": "Enter a city or place",
+    "purpose_label": "Purpose",
+    "date_label": "Date",
+    "preferences_label": "What do you love?",
+    "title_label": "Title",
+    "description_label": "Description",
+    "generate_btn": "Generate my day",
+    "create_btn": "Create itinerary",
+    "status": {
+      "draft": "Draft",
+      "upcoming": "Upcoming",
+      "active": "Active",
+      "completed": "Completed",
+      "wishlist": "Wishlist"
+    },
+    "purpose": {
+      "tourism": "Tourism",
+      "work": "Work",
+      "local_life": "Local Life",
+      "social": "Social"
+    },
+    "ai_badge": "AI Generated",
+    "no_activities": "No activities yet",
+    "no_itineraries": "Start planning your first day",
+    "upcoming_trips": "Your upcoming trips",
+    "all": "All",
+    "reviews": "Reviews",
+    "add_review": "Add a review",
+    "select_activity": "Select an activity to review",
+    "avg_rating": "Average rating"
+  },
+  "activity": {
+    "category": {
+      "food": "Food",
+      "culture": "Culture",
+      "sport": "Sport",
+      "social": "Social",
+      "nature": "Nature",
+      "shopping": "Shopping"
+    },
+    "duration": "min",
+    "order": "Stop"
+  },
+  "community": {
+    "join": "Join",
+    "leave": "Leave",
+    "members": "Members",
+    "create": "Create community",
+    "near_you": "Communities near you",
+    "search_placeholder": "Search communities...",
+    "about": "About",
+    "activities": "Activities",
+    "no_communities": "No communities found",
+    "your_communities": "Your communities",
+    "coming_soon": "Coming soon"
+  },
+  "auth": {
+    "welcome": "Welcome back",
+    "subtitle": "Sign in to plan your next adventure",
+    "sign_google": "Sign in with Google",
+    "sign_apple": "Sign in with Apple",
+    "or": "or"
+  },
+  "onboarding": {
+    "step": "Step {{current}} of {{total}}",
+    "where_title": "Where are you?",
+    "where_sub": "Tell us your location to get personalized suggestions.",
+    "interests_title": "What do you love?",
+    "interests_sub": "Pick the categories that match your travel style.",
+    "language_title": "Choose your language",
+    "language_sub": "Select the language you prefer.",
+    "next": "Next",
+    "back": "Back",
+    "finish": "Finish"
+  },
+  "profile": {
+    "title": "My Profile",
+    "name_label": "Name",
+    "location_label": "Location",
+    "language_label": "Language",
+    "preferences_label": "My interests",
+    "save": "Save changes",
+    "danger_zone": "Danger zone",
+    "delete_account": "Delete account",
+    "delete_confirm": "Are you sure? This action cannot be undone.",
+    "itineraries_count": "Itineraries",
+    "communities_count": "Communities"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "empty": "Nothing here yet",
+    "close": "Close",
+    "confirm": "Confirm",
+    "search": "Search",
+    "filter": "Filter",
+    "page": "Page",
+    "of": "of"
+  }
+}
