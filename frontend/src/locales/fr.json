@@ -88,7 +88,17 @@
     "activities": "Activités",
     "no_communities": "Aucune communauté trouvée",
     "your_communities": "Vos communautés",
-    "coming_soon": "Bientôt disponible"
+    "coming_soon": "Bientôt disponible",
+    "name_label": "Nom de la communauté",
+    "name_placeholder": "ex. Gourmets d'Istanbul",
+    "category_label": "Catégorie",
+    "category_placeholder": "Choisir une catégorie",
+    "location_label": "Lieu",
+    "location_placeholder": "ex. Istanbul, Turquie",
+    "description_label": "Description",
+    "description_placeholder": "De quoi parle cette communauté ?",
+    "cover_image_label": "URL de l'image de couverture (optionnel)",
+    "create_btn": "Créer la communauté"
   },
   "auth": {
     "welcome": "Bon retour",

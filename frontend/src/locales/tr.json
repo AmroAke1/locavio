@@ -88,7 +88,17 @@
     "activities": "Aktiviteler",
     "no_communities": "Topluluk bulunamadı",
     "your_communities": "Topluluklarınız",
-    "coming_soon": "Çok yakında"
+    "coming_soon": "Çok yakında",
+    "name_label": "Topluluk adı",
+    "name_placeholder": "örn. İstanbul Gurmeler",
+    "category_label": "Kategori",
+    "category_placeholder": "Kategori seçin",
+    "location_label": "Konum",
+    "location_placeholder": "örn. İstanbul, Türkiye",
+    "description_label": "Açıklama",
+    "description_placeholder": "Bu topluluk ne hakkında?",
+    "cover_image_label": "Kapak resmi URL'si (isteğe bağlı)",
+    "create_btn": "Topluluk oluştur"
   },
   "auth": {
     "welcome": "Tekrar hoş geldiniz",

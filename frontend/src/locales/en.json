@@ -88,7 +88,17 @@
     "activities": "Activities",
     "no_communities": "No communities found",
     "your_communities": "Your communities",
-    "coming_soon": "Coming soon"
+    "coming_soon": "Coming soon",
+    "name_label": "Community name",
+    "name_placeholder": "e.g. Istanbul Foodies",
+    "category_label": "Category",
+    "category_placeholder": "Select a category",
+    "location_label": "Location",
+    "location_placeholder": "e.g. Istanbul, Turkey",
+    "description_label": "Description",
+    "description_placeholder": "What is this community about?",
+    "cover_image_label": "Cover image URL (optional)",
+    "create_btn": "Create community"
   },
   "auth": {
     "welcome": "Welcome back",

@@ -89,7 +89,17 @@
     "activities": "الأنشطة",
     "no_communities": "لم يتم العثور على مجتمعات",
     "your_communities": "مجتمعاتك",
-    "coming_soon": "قريباً"
+    "coming_soon": "قريباً",
+    "name_label": "اسم المجتمع",
+    "name_placeholder": "مثال: محبو الطعام في إسطنبول",
+    "category_label": "الفئة",
+    "category_placeholder": "اختر فئة",
+    "location_label": "الموقع",
+    "location_placeholder": "مثال: إسطنبول، تركيا",
+    "description_label": "الوصف",
+    "description_placeholder": "ما الذي يدور حوله هذا المجتمع؟",
+    "cover_image_label": "رابط صورة الغلاف (اختياري)",
+    "create_btn": "إنشاء المجتمع"
   },
   "auth": {
     "welcome": "أهلاً بعودتك",
