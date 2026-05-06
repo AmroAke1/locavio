@@ -1,3 +1,4 @@
+import asyncio
 from datetime import datetime
 
 from sqlalchemy import func
@@ -20,20 +21,7 @@ async def list_itineraries(
     limit: int,
     language: str,
 ) -> list[Itinerary]:
-    """List itineraries belonging to a user with optional filters and pagination.
-
-    Args:
-        db: Active database session.
-        user_id: Owner's user ID.
-        status: Optional status filter.
-        purpose: Optional purpose filter.
-        page: 1-based page number.
-        limit: Results per page.
-        language: Request language code (reserved for future i18n use).
-
-    Returns:
-        List of Itinerary ORM instances.
-    """
+    """List itineraries belonging to a user with optional filters and pagination."""
     query = (
         select(Itinerary)
         .where(Itinerary.user_id == user_id)
@@ -54,16 +42,7 @@ async def list_itineraries(
 async def get_itinerary(
     db: AsyncSession, itinerary_id: int, language: str
 ) -> Itinerary | None:
-    """Fetch a single itinerary with its nested activities.
-
-    Args:
-        db: Active database session.
-        itinerary_id: Primary key of the itinerary.
-        language: Request language code.
-
-    Returns:
-        Itinerary ORM instance with activities loaded, or None.
-    """
+    """Fetch a single itinerary with its nested activities."""
     result = await db.execute(
         select(Itinerary)
         .where(Itinerary.id == itinerary_id)
@@ -75,17 +54,7 @@ async def get_itinerary(
 async def create_itinerary(
     db: AsyncSession, user_id: int, data: ItineraryCreate, language: str
 ) -> Itinerary:
-    """Create a new itinerary manually.
-
-    Args:
-        db: Active database session.
-        user_id: Owner's user ID.
-        data: Validated creation payload.
-        language: Request language code.
-
-    Returns:
-        Newly created Itinerary ORM instance.
-    """
+    """Create a new itinerary manually."""
     itinerary = Itinerary(user_id=user_id, **data.model_dump())
     db.add(itinerary)
     await db.commit()
@@ -96,17 +65,7 @@ async def create_itinerary(
 async def update_itinerary(
     db: AsyncSession, itinerary: Itinerary, data: ItineraryUpdate, language: str
 ) -> Itinerary:
-    """Apply a partial update to an itinerary.
-
-    Args:
-        db: Active database session.
-        itinerary: Itinerary ORM instance to update.
-        data: Pydantic schema with optional fields to overwrite.
-        language: Request language code.
-
-    Returns:
-        Updated Itinerary ORM instance with activities loaded.
-    """
+    """Apply a partial update to an itinerary."""
     for field, value in data.model_dump(exclude_unset=True).items():
         setattr(itinerary, field, value)
     await db.commit()
@@ -115,12 +74,7 @@ async def update_itinerary(
 
 
 async def delete_itinerary(db: AsyncSession, itinerary: Itinerary) -> None:
-    """Delete an itinerary and its cascaded activities.
-
-    Args:
-        db: Active database session.
-        itinerary: Itinerary ORM instance to delete.
-    """
+    """Delete an itinerary and its cascaded activities."""
     await db.delete(itinerary)
     await db.commit()
 
@@ -131,25 +85,25 @@ async def generate_ai_itinerary(
     data: ItineraryGenerateRequest,
     language: str,
 ) -> Itinerary:
-    """Generate an itinerary via AI, geocode each activity, and persist to the database.
+    """Generate an itinerary via AI, geocode destination + each activity, and persist.
 
-    Args:
-        db: Active database session.
-        user_id: Owner's user ID.
-        data: Generation request payload (location, purpose, date, preferences).
-        language: Request language code passed to the AI service.
-
-    Returns:
-        Newly created Itinerary ORM instance with activities loaded.
+    Geocodes data.location in parallel with AI generation so the parent
+    Itinerary row gets lat/lng — required by TripOverviewMap on the dashboard.
     """
     date_str = data.date.isoformat() if data.date else ""
-    ai_result = await ai_service.generate_itinerary(
-        location=data.location,
-        purpose=data.purpose.value,
-        date=date_str,
-        preferences=data.preferences,
-        language=language,
+    ai_result, itinerary_coords = await asyncio.gather(
+        ai_service.generate_itinerary(
+            location=data.location,
+            purpose=data.purpose.value,
+            date=date_str,
+            preferences=data.preferences,
+            language=language,
+        ),
+        geocoding_service.geocode(data.location),
     )
+
+    itinerary_lat = itinerary_coords[0] if itinerary_coords else None
+    itinerary_lng = itinerary_coords[1] if itinerary_coords else None
 
     itinerary = Itinerary(
         user_id=user_id,
@@ -157,6 +111,8 @@ async def generate_ai_itinerary(
         description=ai_result["description"],
         purpose=data.purpose,
         location=data.location,
+        lat=itinerary_lat,
+        lng=itinerary_lng,
         date=data.date,
         status=ItineraryStatus.draft,
         generated_by_ai=True,
@@ -173,7 +129,6 @@ async def generate_ai_itinerary(
         start_time = None
         if start_time_str:
             from datetime import time as dt_time
-
             h, m = start_time_str.split(":")
             start_time = dt_time(int(h), int(m))
 

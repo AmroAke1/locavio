@@ -11,3 +11,5 @@ PyJWT
 cryptography
 python-multipart
 greenlet
+google-genai
+openai

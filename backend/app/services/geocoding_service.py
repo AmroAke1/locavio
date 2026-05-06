@@ -4,22 +4,30 @@ from app.core.config import settings
 
 
 async def geocode(location_name: str) -> tuple[float, float] | None:
-    """Geocode a location name to (lat, lng) coordinates.
+    if settings.GOOGLE_MAPS_API_KEY:
+        return await _geocode_google(location_name)
+    if settings.OPENCAGE_API_KEY:
+        return await _geocode_opencage(location_name)
+    return None
 
-    Uses OpenCage if OPENCAGE_API_KEY is configured, otherwise returns None.
 
-    Args:
-        location_name: Human-readable location string to geocode.
+async def _geocode_google(location_name: str) -> tuple[float, float] | None:
+    async with httpx.AsyncClient() as client:
+        resp = await client.get(
+            "https://maps.googleapis.com/maps/api/geocode/json",
+            params={"address": location_name, "key": settings.GOOGLE_MAPS_API_KEY},
+        )
+        resp.raise_for_status()
+        data = resp.json()
 
-    Returns:
-        A (latitude, longitude) float tuple, or None if geocoding is unavailable
-        or the location could not be resolved.
-
-    # TODO: also support Google Maps Geocoding API as a fallback provider
-    """
-    if not settings.OPENCAGE_API_KEY:
+    if data.get("status") != "OK" or not data.get("results"):
         return None
 
+    location = data["results"][0]["geometry"]["location"]
+    return float(location["lat"]), float(location["lng"])
+
+
+async def _geocode_opencage(location_name: str) -> tuple[float, float] | None:
     async with httpx.AsyncClient() as client:
         resp = await client.get(
             "https://api.opencagedata.com/geocode/v1/json",
