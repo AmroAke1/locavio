@@ -15,6 +15,9 @@ class Settings(BaseSettings):
     APPLE_TEAM_ID: str = ""
     APPLE_KEY_ID: str = ""
 
+    GEMINI_API_KEY: str = ""
+    OPENAI_API_KEY: str = ""
+    GOOGLE_MAPS_API_KEY: str = ""
     OPENCAGE_API_KEY: str = ""
     DEFAULT_LANGUAGE: str = "en"
     ALLOWED_LANGUAGES: list[str] = ["en", "fr", "es", "ar", "tr"]
