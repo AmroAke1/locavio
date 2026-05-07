@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 10080
 
     GOOGLE_CLIENT_ID: str = ""
+    LINKEDIN_CLIENT_ID: str = ""
+    LINKEDIN_CLIENT_SECRET: str = ""
+    FRONTEND_URL: str = "http://localhost:5173"
 
     GEMINI_API_KEY: str = ""
     OPENAI_API_KEY: str = ""

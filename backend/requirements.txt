@@ -13,3 +13,7 @@ greenlet
 google-genai
 openai
 bcrypt
+pytest
+pytest-asyncio
+pytest-cov
+aiosqlite

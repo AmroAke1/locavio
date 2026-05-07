@@ -3,6 +3,12 @@ import api from './api'
 export const googleLogin = (token) =>
   api.post('/auth/google', { token }).then((r) => r.data)
 
+export const getLinkedinAuthUrl = () =>
+  api.get('/auth/linkedin/url').then((r) => r.data)
+
+export const linkedinLogin = (code) =>
+  api.post('/auth/linkedin', { code }).then((r) => r.data)
+
 export const emailLogin = (email, password) =>
   api.post('/auth/login', { email, password }).then((r) => r.data)
 

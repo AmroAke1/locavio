@@ -22,6 +22,7 @@ import CommunityList from '@/pages/CommunityList'
 import CommunityNew from '@/pages/CommunityNew'
 import CommunityDetail from '@/pages/CommunityDetail'
 import Profile from '@/pages/Profile'
+import LinkedInCallback from '@/pages/LinkedInCallback'
 
 function AppLayout() {
   return (
@@ -62,6 +63,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/auth/linkedin/callback" element={<LinkedInCallback />} />
 
             <Route element={<ProtectedRoute />}>
               <Route element={<AppLayout />}>

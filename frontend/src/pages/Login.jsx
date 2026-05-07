@@ -1,20 +1,31 @@
 import { useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '@/store/authStore'
 import { useAuth } from '@/hooks/useAuth'
 import GoogleLoginButton from '@/components/auth/GoogleLoginButton'
+import LinkedInLoginButton from '@/components/auth/LinkedInLoginButton'
+
+const LINKEDIN_ERROR_MESSAGES = {
+  linkedin_denied: 'LinkedIn sign-in was cancelled.',
+  linkedin_failed: 'LinkedIn sign-in failed. Please try again.',
+  invalid_state: 'LinkedIn sign-in failed (security check). Please try again.',
+}
 
 function Login() {
   const { t } = useTranslation()
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
   const { loginWithEmail, registerWithEmail } = useAuth()
+  const [searchParams] = useSearchParams()
 
   const [mode, setMode] = useState('signin')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const [error, setError] = useState(() => {
+    const errParam = searchParams.get('error')
+    return LINKEDIN_ERROR_MESSAGES[errParam] || ''
+  })
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -53,6 +64,12 @@ function Login() {
 
         <div className="w-full flex flex-col gap-3">
           <GoogleLoginButton />
+          <div className="flex items-center gap-3">
+            <div className="flex-1 h-px bg-accent/40" />
+            <span className="text-xs text-muted uppercase tracking-wide">{t('auth.or')}</span>
+            <div className="flex-1 h-px bg-accent/40" />
+          </div>
+          <LinkedInLoginButton />
         </div>
 
         <div className="flex items-center gap-3 w-full">
