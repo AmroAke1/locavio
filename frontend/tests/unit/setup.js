@@ -71,6 +71,13 @@ vi.mock('leaflet', () => ({
   icon: vi.fn(() => ({})),
 }))
 
+// Suppress noisy React Router v6 future flag warnings
+const _warn = console.warn.bind(console)
+console.warn = (msg, ...args) => {
+  if (typeof msg === 'string' && msg.includes('React Router Future Flag Warning')) return
+  _warn(msg, ...args)
+}
+
 // Mock @react-oauth/google
 vi.mock('@react-oauth/google', () => ({
   GoogleLogin: ({ onSuccess }) => {
