@@ -1,8 +1,9 @@
 from datetime import datetime
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, EmailStr
 
-from app.models.user import AuthProvider
+from app.models.user import AuthProvider, UserRole
 
 
 class UserCreate(BaseModel):
@@ -21,6 +22,10 @@ class UserUpdate(BaseModel):
     preferences: dict | None = None
 
 
+class UserRoleUpdate(BaseModel):
+    role: Literal['guest', 'user', 'admin']
+
+
 class UserResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -29,6 +34,7 @@ class UserResponse(BaseModel):
     name: str | None
     avatar_url: str | None
     auth_provider: AuthProvider
+    role: UserRole
     location: str | None
     preferences: dict | None
     created_at: datetime

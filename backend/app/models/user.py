@@ -13,6 +13,12 @@ class AuthProvider(str, enum.Enum):
     email = "email"
 
 
+class UserRole(str, enum.Enum):
+    guest = "guest"
+    user = "user"
+    admin = "admin"
+
+
 class User(Base):
     __tablename__ = "users"
 
@@ -24,6 +30,9 @@ class User(Base):
         Enum(AuthProvider, name="authprovider"), nullable=False
     )
     password_hash: Mapped[str | None] = mapped_column(Text, nullable=True)
+    role: Mapped[UserRole] = mapped_column(
+        Enum(UserRole, name="userrole"), nullable=False, default=UserRole.user, server_default="user"
+    )
     location: Mapped[str | None] = mapped_column(String(255), nullable=True)
     preferences: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     created_at: Mapped[datetime] = mapped_column(

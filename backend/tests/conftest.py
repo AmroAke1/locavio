@@ -23,7 +23,7 @@ TEST_DB_URL = "sqlite+aiosqlite:///./test.db"
 from app.main import app
 from app.core.database import Base, get_db
 from app.core.security import create_access_token
-from app.models.user import User, AuthProvider
+from app.models.user import User, AuthProvider, UserRole
 from app.models.itinerary import Itinerary
 from app.models.activity import Activity
 
@@ -107,7 +107,6 @@ async def test_client(test_db):
 
 @pytest_asyncio.fixture
 async def mock_user(test_db):
-    # Use a unique email to avoid conflicts across test runs
     import uuid
     unique_email = f"test-{uuid.uuid4().hex[:8]}@example.com"
     user = User(
@@ -115,6 +114,7 @@ async def mock_user(test_db):
         name="Test User",
         auth_provider=AuthProvider.email,
         password_hash="hashed",
+        role=UserRole.user,
     )
     test_db.add(user)
     await test_db.commit()
@@ -130,4 +130,32 @@ async def mock_user(test_db):
 @pytest.fixture
 def auth_headers(mock_user):
     token = create_access_token({"sub": str(mock_user.id)})
+    return {"Authorization": f"Bearer {token}"}
+
+
+@pytest_asyncio.fixture
+async def mock_admin(test_db):
+    import uuid
+    unique_email = f"admin-{uuid.uuid4().hex[:8]}@example.com"
+    user = User(
+        email=unique_email,
+        name="Admin User",
+        auth_provider=AuthProvider.email,
+        password_hash="hashed",
+        role=UserRole.admin,
+    )
+    test_db.add(user)
+    await test_db.commit()
+    await test_db.refresh(user)
+    yield user
+    try:
+        await test_db.delete(user)
+        await test_db.commit()
+    except Exception:
+        await test_db.rollback()
+
+
+@pytest.fixture
+def admin_headers(mock_admin):
+    token = create_access_token({"sub": str(mock_admin.id)})
     return {"Authorization": f"Bearer {token}"}

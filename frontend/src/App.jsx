@@ -9,6 +9,7 @@ import Navbar from '@/components/layout/Navbar'
 import Sidebar from '@/components/layout/Sidebar'
 import Footer from '@/components/layout/Footer'
 import ProtectedRoute from '@/components/layout/ProtectedRoute'
+import AdminRoute from '@/components/layout/AdminRoute'
 import Spinner from '@/components/ui/Spinner'
 
 import Landing from '@/pages/Landing'
@@ -23,6 +24,9 @@ import CommunityNew from '@/pages/CommunityNew'
 import CommunityDetail from '@/pages/CommunityDetail'
 import Profile from '@/pages/Profile'
 import LinkedInCallback from '@/pages/LinkedInCallback'
+import Admin from '@/pages/Admin'
+import Unauthorized from '@/pages/Unauthorized'
+import Permissions from '@/pages/Permissions'
 
 function AppLayout() {
   return (
@@ -63,6 +67,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
+            <Route path="/admin/permissions" element={<Permissions />} />
             <Route path="/auth/linkedin/callback" element={<LinkedInCallback />} />
 
             <Route element={<ProtectedRoute />}>
@@ -76,6 +82,12 @@ function App() {
                 <Route path="/communities/new" element={<CommunityNew />} />
                 <Route path="/communities/:id" element={<CommunityDetail />} />
                 <Route path="/profile" element={<Profile />} />
+              </Route>
+            </Route>
+
+            <Route element={<AdminRoute />}>
+              <Route element={<AppLayout />}>
+                <Route path="/admin" element={<Admin />} />
               </Route>
             </Route>
 
