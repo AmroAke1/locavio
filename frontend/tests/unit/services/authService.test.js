@@ -1,62 +1,77 @@
-import { describe, it, expect, beforeAll, afterEach, afterAll } from 'vitest'
-import { setupServer } from 'msw/node'
-import { handlers } from '../mocks/handlers.js'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+
+vi.mock('../../../src/services/api', () => ({
+  default: {
+    get: vi.fn(),
+    post: vi.fn(),
+    put: vi.fn(),
+    delete: vi.fn(),
+    interceptors: {
+      request: { use: vi.fn() },
+      response: { use: vi.fn() },
+    },
+  },
+}))
+
+import api from '../../../src/services/api'
 import {
   googleLogin,
   emailLogin,
   emailRegister,
   getMe,
   linkedinLogin,
+  getLinkedinAuthUrl,
 } from '../../../src/services/authService'
 
-const server = setupServer(...handlers)
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
+const mockUser = {
+  id: 1,
+  email: 'test@test.com',
+  name: 'Test User',
+  auth_provider: 'email',
+}
+
+beforeEach(() => vi.clearAllMocks())
 
 describe('authService', () => {
-  it('googleLogin() returns access_token and user', async () => {
-    const result = await googleLogin('mock-google-token')
-    expect(result.access_token).toBe('mock-jwt')
-    expect(result.user.email).toBe('test@test.com')
+  it('googleLogin() posts to /auth/google and returns data', async () => {
+    api.post.mockResolvedValueOnce({ data: { access_token: 'jwt', user: mockUser } })
+    const result = await googleLogin('google-token')
+    expect(api.post).toHaveBeenCalledWith('/auth/google', { token: 'google-token' })
+    expect(result.access_token).toBe('jwt')
   })
 
-  it('emailLogin() calls correct endpoint', async () => {
+  it('emailLogin() posts to /auth/login', async () => {
+    api.post.mockResolvedValueOnce({ data: { access_token: 'jwt', user: mockUser } })
     const result = await emailLogin('test@test.com', 'password')
+    expect(api.post).toHaveBeenCalledWith('/auth/login', { email: 'test@test.com', password: 'password' })
     expect(result.access_token).toBeDefined()
   })
 
-  it('emailRegister() calls correct endpoint', async () => {
+  it('emailRegister() posts to /auth/register', async () => {
+    api.post.mockResolvedValueOnce({ data: { access_token: 'jwt', user: mockUser } })
     const result = await emailRegister('new@test.com', 'password', 'New User')
+    expect(api.post).toHaveBeenCalledWith('/auth/register', { email: 'new@test.com', password: 'password', name: 'New User' })
     expect(result.user).toBeDefined()
   })
 
-  it('getMe() returns user data', async () => {
+  it('getMe() calls GET /auth/me', async () => {
+    api.get.mockResolvedValueOnce({ data: mockUser })
     const result = await getMe()
+    expect(api.get).toHaveBeenCalledWith('/auth/me')
     expect(result.email).toBe('test@test.com')
   })
 
-  it('linkedinLogin() calls POST /auth/linkedin', async () => {
-    const { http, HttpResponse } = await import('msw')
-    server.use(
-      http.post('*/api/v1/auth/linkedin', () =>
-        HttpResponse.json({
-          access_token: 'jwt',
-          token_type: 'bearer',
-          user: {
-            id: 1,
-            email: 'li@test.com',
-            name: 'LI',
-            auth_provider: 'linkedin',
-            location: null,
-            preferences: null,
-            created_at: '2026-01-01T00:00:00Z',
-            updated_at: null,
-          },
-        })
-      )
-    )
+  it('linkedinLogin() posts to /auth/linkedin', async () => {
+    api.post.mockResolvedValueOnce({ data: { access_token: 'jwt', user: mockUser } })
     const result = await linkedinLogin('auth-code')
+    expect(api.post).toHaveBeenCalledWith('/auth/linkedin', { code: 'auth-code' })
     expect(result.access_token).toBe('jwt')
+  })
+
+  it('getLinkedinAuthUrl() calls GET /auth/linkedin/url', async () => {
+    api.get.mockResolvedValueOnce({ data: { url: 'https://linkedin.com/oauth' } })
+    const result = await getLinkedinAuthUrl()
+    expect(api.get).toHaveBeenCalledWith('/auth/linkedin/url')
+    expect(result.url).toContain('linkedin.com')
   })
 })
