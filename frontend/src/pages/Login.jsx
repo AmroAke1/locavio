@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '@/store/authStore'
 import { useAuth } from '@/hooks/useAuth'
 import GoogleLoginButton from '@/components/auth/GoogleLoginButton'
-import AppleLoginButton from '@/components/auth/AppleLoginButton'
 
 function Login() {
   const { t } = useTranslation()
@@ -54,14 +53,6 @@ function Login() {
 
         <div className="w-full flex flex-col gap-3">
           <GoogleLoginButton />
-
-          <div className="flex items-center gap-3">
-            <div className="flex-1 h-px bg-accent/40" />
-            <span className="text-xs text-muted uppercase tracking-wide">{t('auth.or')}</span>
-            <div className="flex-1 h-px bg-accent/40" />
-          </div>
-
-          <AppleLoginButton />
         </div>
 
         <div className="flex items-center gap-3 w-full">
