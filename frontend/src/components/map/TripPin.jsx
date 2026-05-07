@@ -1,20 +1,20 @@
 import L from 'leaflet'
 
 const CATEGORY_COLORS = {
-  food: '#F97316',
-  culture: '#A855F7',
-  sport: '#22C55E',
-  social: '#3B82F6',
-  nature: '#14B8A6',
-  shopping: '#EC4899',
+  food:     '#A0522D', // primary sienna
+  culture:  '#3D2B1F', // espresso
+  sport:    '#4A7C59', // success green
+  social:   '#D4A373', // accent tan
+  nature:   '#6B7F5E', // muted olive
+  shopping: '#8B5E3C', // warm brown
 }
 
 const STATUS_COLORS = {
-  upcoming: '#3B82F6',
-  active: '#22C55E',
-  completed: '#9CA3AF',
-  wishlist: '#EAB308',
-  draft: '#8B7355',
+  upcoming:  '#A0522D', // primary sienna
+  active:    '#4A7C59', // success green
+  completed: '#8B7355', // muted
+  wishlist:  '#D4A373', // accent tan
+  draft:     '#3D2B1F', // espresso
 }
 
 export function createActivityPin(orderIndex, category = 'culture') {
@@ -41,15 +41,18 @@ export function createStatusPin(status = 'draft') {
   const color = STATUS_COLORS[status] ?? '#8B7355'
   return L.divIcon({
     html: `<div style="
-      background-color:${color};
-      width:20px;height:20px;
-      border-radius:50%;
-      border:2px solid white;
-      box-shadow:0 2px 6px rgba(0,0,0,0.35);
-    "></div>`,
+      width:26px;height:34px;
+      display:flex;align-items:center;justify-content:center;
+    ">
+      <svg width="26" height="34" viewBox="0 0 26 34" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 0C5.82 0 0 5.82 0 13c0 9.75 13 21 13 21s13-11.25 13-21C26 5.82 20.18 0 13 0z"
+          fill="${color}" stroke="white" stroke-width="2"/>
+        <circle cx="13" cy="13" r="5" fill="white" opacity="0.9"/>
+      </svg>
+    </div>`,
     className: '',
-    iconSize: [20, 20],
-    iconAnchor: [10, 10],
-    popupAnchor: [0, -12],
+    iconSize: [26, 34],
+    iconAnchor: [13, 34],
+    popupAnchor: [0, -36],
   })
 }

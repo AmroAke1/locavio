@@ -106,7 +106,16 @@
     "subtitle": "سجّل الدخول لتخطيط مغامرتك القادمة",
     "sign_google": "تسجيل الدخول بـ Google",
     "sign_apple": "تسجيل الدخول بـ Apple",
-    "or": "أو"
+    "or": "أو",
+    "email_placeholder": "البريد الإلكتروني",
+    "password_placeholder": "كلمة المرور",
+    "name_placeholder": "اسمك",
+    "sign_in_email": "تسجيل الدخول",
+    "sign_up": "إنشاء حساب",
+    "no_account": "ليس لديك حساب؟",
+    "have_account": "لديك حساب بالفعل؟",
+    "switch_signup": "إنشاء حساب",
+    "switch_signin": "تسجيل الدخول"
   },
   "onboarding": {
     "step": "الخطوة {{current}} من {{total}}",

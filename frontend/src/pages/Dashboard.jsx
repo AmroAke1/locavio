@@ -22,6 +22,12 @@ function Dashboard() {
     document.title = 'Locavio — Dashboard'
     fetchItineraries()
     fetchCommunities({ limit: 6 })
+
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') fetchItineraries()
+    }
+    document.addEventListener('visibilitychange', onVisible)
+    return () => document.removeEventListener('visibilitychange', onVisible)
   }, [])
 
   const greeting = () => {

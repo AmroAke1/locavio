@@ -10,6 +10,7 @@ from app.core.database import Base
 class AuthProvider(str, enum.Enum):
     google = "google"
     apple = "apple"
+    email = "email"
 
 
 class User(Base):
@@ -22,6 +23,7 @@ class User(Base):
     auth_provider: Mapped[AuthProvider] = mapped_column(
         Enum(AuthProvider, name="authprovider"), nullable=False
     )
+    password_hash: Mapped[str | None] = mapped_column(Text, nullable=True)
     location: Mapped[str | None] = mapped_column(String(255), nullable=True)
     preferences: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     created_at: Mapped[datetime] = mapped_column(

@@ -105,7 +105,16 @@
     "subtitle": "Bir sonraki maceranı planlamak için giriş yap",
     "sign_google": "Google ile giriş yap",
     "sign_apple": "Apple ile giriş yap",
-    "or": "veya"
+    "or": "veya",
+    "email_placeholder": "E-posta adresi",
+    "password_placeholder": "Şifre",
+    "name_placeholder": "Adınız",
+    "sign_in_email": "Giriş yap",
+    "sign_up": "Hesap oluştur",
+    "no_account": "Hesabın yok mu?",
+    "have_account": "Zaten hesabın var mı?",
+    "switch_signup": "Kayıt ol",
+    "switch_signin": "Giriş yap"
   },
   "onboarding": {
     "step": "Adım {{current}} / {{total}}",

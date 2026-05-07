@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
@@ -14,6 +14,17 @@ router = APIRouter(prefix="/api/v1/auth", tags=["Authentication"])
 
 class TokenRequest(BaseModel):
     token: str
+
+
+class EmailRegisterRequest(BaseModel):
+    email: EmailStr
+    password: str
+    name: str | None = None
+
+
+class EmailLoginRequest(BaseModel):
+    email: EmailStr
+    password: str
 
 
 class AuthResponse(BaseModel):
@@ -56,6 +67,20 @@ async def apple_auth(body: TokenRequest, db: AsyncSession = Depends(get_db)):
         auth_provider=AuthProvider.apple,
     )
 
+    token = create_access_token({"sub": str(user.id)})
+    return AuthResponse(access_token=token, user=UserResponse.model_validate(user))
+
+
+@router.post("/register", response_model=AuthResponse, status_code=status.HTTP_201_CREATED)
+async def email_register(body: EmailRegisterRequest, db: AsyncSession = Depends(get_db)):
+    user = await auth_service.register_email_user(db, body.email, body.password, body.name or "")
+    token = create_access_token({"sub": str(user.id)})
+    return AuthResponse(access_token=token, user=UserResponse.model_validate(user))
+
+
+@router.post("/login", response_model=AuthResponse)
+async def email_login(body: EmailLoginRequest, db: AsyncSession = Depends(get_db)):
+    user = await auth_service.authenticate_email_user(db, body.email, body.password)
     token = create_access_token({"sub": str(user.id)})
     return AuthResponse(access_token=token, user=UserResponse.model_validate(user))
 

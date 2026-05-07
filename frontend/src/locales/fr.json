@@ -105,7 +105,16 @@
     "subtitle": "Connectez-vous pour planifier votre prochaine aventure",
     "sign_google": "Se connecter avec Google",
     "sign_apple": "Se connecter avec Apple",
-    "or": "ou"
+    "or": "ou",
+    "email_placeholder": "Adresse e-mail",
+    "password_placeholder": "Mot de passe",
+    "name_placeholder": "Votre nom",
+    "sign_in_email": "Se connecter",
+    "sign_up": "Créer un compte",
+    "no_account": "Pas encore de compte ?",
+    "have_account": "Vous avez déjà un compte ?",
+    "switch_signup": "S'inscrire",
+    "switch_signin": "Se connecter"
   },
   "onboarding": {
     "step": "Étape {{current}} sur {{total}}",

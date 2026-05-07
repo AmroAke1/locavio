@@ -5,10 +5,14 @@ from app.core.config import settings
 
 async def geocode(location_name: str) -> tuple[float, float] | None:
     if settings.GOOGLE_MAPS_API_KEY:
-        return await _geocode_google(location_name)
+        result = await _geocode_google(location_name)
+        if result:
+            return result
     if settings.OPENCAGE_API_KEY:
-        return await _geocode_opencage(location_name)
-    return None
+        result = await _geocode_opencage(location_name)
+        if result:
+            return result
+    return await _geocode_nominatim(location_name)
 
 
 async def _geocode_google(location_name: str) -> tuple[float, float] | None:
@@ -53,3 +57,20 @@ async def _geocode_opencage(location_name: str) -> tuple[float, float] | None:
         return None
 
     return float(lat), float(lng)
+
+
+async def _geocode_nominatim(location_name: str) -> tuple[float, float] | None:
+    async with httpx.AsyncClient() as client:
+        resp = await client.get(
+            "https://nominatim.openstreetmap.org/search",
+            params={"q": location_name, "format": "json", "limit": 1},
+            headers={"User-Agent": "Locavio/1.0"},
+            timeout=10,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+
+    if not data:
+        return None
+
+    return float(data[0]["lat"]), float(data[0]["lon"])

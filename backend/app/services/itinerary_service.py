@@ -1,5 +1,5 @@
 import asyncio
-from datetime import datetime
+from datetime import date as Date, datetime
 
 from sqlalchemy import func
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -10,6 +10,12 @@ from app.models.activity import Activity
 from app.models.itinerary import Itinerary, ItineraryPurpose, ItineraryStatus
 from app.schemas.itinerary import ItineraryCreate, ItineraryGenerateRequest, ItineraryUpdate
 from app.services import ai_service, geocoding_service
+
+
+def _auto_status(date: Date | None) -> ItineraryStatus:
+    if date and date >= Date.today():
+        return ItineraryStatus.upcoming
+    return ItineraryStatus.draft
 
 
 async def list_itineraries(
@@ -55,7 +61,16 @@ async def create_itinerary(
     db: AsyncSession, user_id: int, data: ItineraryCreate, language: str
 ) -> Itinerary:
     """Create a new itinerary manually."""
-    itinerary = Itinerary(user_id=user_id, **data.model_dump())
+    fields = data.model_dump()
+
+    if fields.get("location") and fields.get("lat") is None:
+        coords = await geocoding_service.geocode(fields["location"])
+        if coords:
+            fields["lat"], fields["lng"] = coords[0], coords[1]
+
+    fields["status"] = _auto_status(fields.get("date"))
+
+    itinerary = Itinerary(user_id=user_id, **fields)
     db.add(itinerary)
     await db.commit()
     await db.refresh(itinerary)
@@ -114,7 +129,7 @@ async def generate_ai_itinerary(
         lat=itinerary_lat,
         lng=itinerary_lng,
         date=data.date,
-        status=ItineraryStatus.draft,
+        status=_auto_status(data.date),
         generated_by_ai=True,
     )
     db.add(itinerary)
