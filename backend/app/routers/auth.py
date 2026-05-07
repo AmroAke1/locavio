@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.dependencies import get_current_active_user
-from app.core.security import create_access_token, verify_apple_token, verify_google_token
+from app.core.security import create_access_token, verify_google_token
 from app.models.user import AuthProvider, User
 from app.schemas.user import UserResponse
 from app.services import auth_service
@@ -51,24 +51,6 @@ async def google_auth(body: TokenRequest, db: AsyncSession = Depends(get_db)):
     token = create_access_token({"sub": str(user.id)})
     return AuthResponse(access_token=token, user=UserResponse.model_validate(user))
 
-
-@router.post("/apple", response_model=AuthResponse, status_code=status.HTTP_200_OK)
-async def apple_auth(body: TokenRequest, db: AsyncSession = Depends(get_db)):
-    try:
-        apple_data = await verify_apple_token(body.token)
-    except Exception as exc:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc))
-
-    user = await auth_service.get_or_create_user(
-        db=db,
-        email=apple_data["email"],
-        name=apple_data.get("name", ""),
-        avatar_url="",
-        auth_provider=AuthProvider.apple,
-    )
-
-    token = create_access_token({"sub": str(user.id)})
-    return AuthResponse(access_token=token, user=UserResponse.model_validate(user))
 
 
 @router.post("/register", response_model=AuthResponse, status_code=status.HTTP_201_CREATED)

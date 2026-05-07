@@ -3,9 +3,6 @@ import api from './api'
 export const googleLogin = (token) =>
   api.post('/auth/google', { token }).then((r) => r.data)
 
-export const appleLogin = (token) =>
-  api.post('/auth/apple', { token }).then((r) => r.data)
-
 export const emailLogin = (email, password) =>
   api.post('/auth/login', { email, password }).then((r) => r.data)
 

@@ -2,7 +2,6 @@ from datetime import datetime, timedelta, timezone
 
 import bcrypt
 import httpx
-import jwt
 from jose import jwt as jose_jwt
 
 from app.core.config import settings
@@ -48,33 +47,3 @@ async def verify_google_token(token: str) -> dict:
     }
 
 
-async def verify_apple_token(token: str) -> dict:
-    """Verify an Apple Sign In token and return email and name."""
-    async with httpx.AsyncClient() as client:
-        resp = await client.get("https://appleid.apple.com/auth/keys")
-        resp.raise_for_status()
-        jwks = resp.json()
-
-    header = jwt.get_unverified_header(token)
-    kid = header.get("kid")
-
-    matching_key = next(
-        (k for k in jwks.get("keys", []) if k.get("kid") == kid), None
-    )
-    if matching_key is None:
-        raise ValueError("Apple public key not found for kid")
-
-    from jwt.algorithms import RSAAlgorithm
-
-    public_key = RSAAlgorithm.from_jwk(matching_key)
-    payload = jwt.decode(
-        token,
-        public_key,
-        algorithms=["RS256"],
-        audience=settings.APPLE_CLIENT_ID,
-    )
-
-    return {
-        "email": payload.get("email", ""),
-        "name": payload.get("name", ""),
-    }

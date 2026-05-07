@@ -12,9 +12,6 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 10080
 
     GOOGLE_CLIENT_ID: str = ""
-    APPLE_CLIENT_ID: str = ""
-    APPLE_TEAM_ID: str = ""
-    APPLE_KEY_ID: str = ""
 
     GEMINI_API_KEY: str = ""
     OPENAI_API_KEY: str = ""

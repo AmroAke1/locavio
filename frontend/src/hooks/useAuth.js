@@ -1,17 +1,11 @@
 import { useAuthStore } from '@/store/authStore'
-import { googleLogin, appleLogin, emailLogin, emailRegister } from '@/services/authService'
+import { googleLogin, emailLogin, emailRegister } from '@/services/authService'
 
 export function useAuth() {
   const { user, isAuthenticated, login, logout } = useAuthStore()
 
   const loginWithGoogle = async (googleToken) => {
     const data = await googleLogin(googleToken)
-    login(data.user, data.access_token)
-    return data
-  }
-
-  const loginWithApple = async (appleToken) => {
-    const data = await appleLogin(appleToken)
     login(data.user, data.access_token)
     return data
   }
@@ -28,5 +22,5 @@ export function useAuth() {
     return data
   }
 
-  return { user, isAuthenticated, loginWithGoogle, loginWithApple, loginWithEmail, registerWithEmail, logout }
+  return { user, isAuthenticated, loginWithGoogle, loginWithEmail, registerWithEmail, logout }
 }

@@ -9,7 +9,6 @@ from app.core.database import Base
 
 class AuthProvider(str, enum.Enum):
     google = "google"
-    apple = "apple"
     email = "email"
 
 
