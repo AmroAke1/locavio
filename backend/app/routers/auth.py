@@ -1,7 +1,8 @@
 import logging
 from urllib.parse import urlencode
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
+from app.core.limiter import limiter
 from pydantic import BaseModel, EmailStr
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -72,7 +73,8 @@ class TwoFAStatusResponse(BaseModel):
 # ── Google OAuth ──────────────────────────────────────────────────────────────
 
 @router.post("/google", response_model=AuthResponse, status_code=status.HTTP_200_OK)
-async def google_auth(body: TokenRequest, db: AsyncSession = Depends(get_db)):
+@limiter.limit("5/minute")
+async def google_auth(request: Request, body: TokenRequest, db: AsyncSession = Depends(get_db)):
     try:
         google_data = await verify_google_token(body.token)
     except Exception as exc:
@@ -93,7 +95,8 @@ async def google_auth(body: TokenRequest, db: AsyncSession = Depends(get_db)):
 # ── Email Registration ────────────────────────────────────────────────────────
 
 @router.post("/register", response_model=AuthResponse, status_code=status.HTTP_201_CREATED)
-async def email_register(body: EmailRegisterRequest, db: AsyncSession = Depends(get_db)):
+@limiter.limit("5/minute")
+async def email_register(request: Request, body: EmailRegisterRequest, db: AsyncSession = Depends(get_db)):
     user = await auth_service.register_email_user(db, body.email, body.password, body.name or "")
     token = create_access_token({"sub": str(user.id), "role": user.role.value})
     return AuthResponse(access_token=token, user=UserResponse.model_validate(user))
@@ -102,7 +105,8 @@ async def email_register(body: EmailRegisterRequest, db: AsyncSession = Depends(
 # ── Email Login (with 2FA support) ────────────────────────────────────────────
 
 @router.post("/login", response_model=LoginResponse)
-async def email_login(body: EmailLoginRequest, db: AsyncSession = Depends(get_db)):
+@limiter.limit("5/minute")
+async def email_login(request: Request, body: EmailLoginRequest, db: AsyncSession = Depends(get_db)):
     user = await auth_service.authenticate_email_user(db, body.email, body.password)
 
     # If user has 2FA enabled, don't give a real token yet
@@ -208,7 +212,8 @@ async def linkedin_auth_url():
 
 
 @router.post("/linkedin", response_model=AuthResponse)
-async def linkedin_auth(body: CodeRequest, db: AsyncSession = Depends(get_db)):
+@limiter.limit("5/minute")
+async def linkedin_auth(request: Request, body: CodeRequest, db: AsyncSession = Depends(get_db)):
     """Authenticate a user via LinkedIn authorization code exchange."""
     access_token = await linkedin_auth_service.exchange_code_for_token(body.code)
     linkedin_data = await linkedin_auth_service.get_linkedin_user(access_token)

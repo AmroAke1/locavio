@@ -30,11 +30,27 @@ class Settings(BaseSettings):
 
     model_config = {"env_file": _env_file, "env_file_encoding": "utf-8"}
 
+    @field_validator("SECRET_KEY", mode="before")
+    @classmethod
+    def validate_secret_key(cls, v: str) -> str:
+        weak = {"secret", "password", "changeme", "mysecretkey", "test"}
+        if len(v) < 32:
+            raise ValueError(
+                "SECRET_KEY must be at least 32 characters. "
+                "Generate one with: python -c \"import secrets; print(secrets.token_hex(32))\""
+            )
+        if v.lower() in weak:
+            raise ValueError("SECRET_KEY is too weak — use a random generated value")
+        return v
+
     @field_validator("DATABASE_URL", mode="before")
     @classmethod
     def fix_database_url(cls, v: str) -> str:
         if v.startswith("postgresql://"):
-            return v.replace("postgresql://", "postgresql+asyncpg://", 1)
+            v = v.replace("postgresql://", "postgresql+asyncpg://", 1)
+        if "supabase.co" in v and "ssl=" not in v:
+            connector = "&" if "?" in v else "?"
+            v = f"{v}{connector}ssl=require"
         return v
 
 
