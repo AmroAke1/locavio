@@ -5,7 +5,7 @@ from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.routers import auth, users, itineraries, activities, communities, reviews
+from app.routers import admin, auth, users, itineraries, activities, communities, reviews
 
 logger = logging.getLogger("locavio")
 
@@ -54,6 +54,7 @@ app.include_router(itineraries.router)
 app.include_router(activities.router)
 app.include_router(communities.router)
 app.include_router(reviews.router)
+app.include_router(admin.router)
 
 
 @app.get("/")
