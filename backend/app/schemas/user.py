@@ -2,7 +2,7 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, EmailStr
 
-from app.models.user import AuthProvider
+from app.models.user import AuthProvider, UserRole
 
 
 class UserCreate(BaseModel):
@@ -29,7 +29,16 @@ class UserResponse(BaseModel):
     name: str | None
     avatar_url: str | None
     auth_provider: AuthProvider
+    role: UserRole
+    is_active: bool
+    totp_enabled: bool
     location: str | None
     preferences: dict | None
     created_at: datetime
     updated_at: datetime | None
+
+
+class AdminUserUpdate(BaseModel):
+    """Schema used by admins to change a user's role or active status."""
+    role: UserRole | None = None
+    is_active: bool | None = None

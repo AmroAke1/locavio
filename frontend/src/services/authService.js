@@ -23,3 +23,14 @@ export const updateUser = (id, data) =>
 
 export const deleteUser = (id) =>
   api.delete(`/users/${id}`)
+
+// ── 2FA ──────────────────────────────────────────────────────────────────────
+
+export const verify2FA = (pendingToken, code) =>
+  api.post('/auth/verify-2fa', { pending_token: pendingToken, code }).then((r) => r.data)
+
+export const enable2FA = () =>
+  api.post('/auth/2fa/enable').then((r) => r.data)
+
+export const disable2FA = () =>
+  api.post('/auth/2fa/disable').then((r) => r.data)

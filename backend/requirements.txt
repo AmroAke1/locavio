@@ -13,6 +13,9 @@ greenlet
 google-genai
 openai
 bcrypt
+pyotp
+qrcode[pil]
+Pillow
 pytest
 pytest-asyncio
 pytest-cov

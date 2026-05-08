@@ -23,6 +23,11 @@ class Settings(BaseSettings):
     DEFAULT_LANGUAGE: str = "en"
     ALLOWED_LANGUAGES: list[str] = ["en", "fr", "es", "ar", "tr"]
 
+    SMTP_SERVER: str = "smtp.gmail.com"
+    SMTP_PORT: int = 587
+    SMTP_USERNAME: str | None = None
+    SMTP_PASSWORD: str | None = None
+
     model_config = {"env_file": _env_file, "env_file_encoding": "utf-8"}
 
     @field_validator("DATABASE_URL", mode="before")
