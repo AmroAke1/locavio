@@ -88,6 +88,13 @@ async def setup_db():
     await engine.dispose()
 
 
+@pytest_asyncio.fixture(autouse=True)
+async def reset_rate_limiter():
+    from app.core.limiter import limiter
+    limiter._storage.reset()
+    yield
+
+
 @pytest_asyncio.fixture
 async def test_db():
     async with TestSessionLocal() as session:
