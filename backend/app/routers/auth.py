@@ -215,8 +215,14 @@ async def linkedin_auth_url():
 @limiter.limit("5/minute")
 async def linkedin_auth(request: Request, body: CodeRequest, db: AsyncSession = Depends(get_db)):
     """Authenticate a user via LinkedIn authorization code exchange."""
-    access_token = await linkedin_auth_service.exchange_code_for_token(body.code)
-    linkedin_data = await linkedin_auth_service.get_linkedin_user(access_token)
+    try:
+        access_token = await linkedin_auth_service.exchange_code_for_token(body.code)
+        linkedin_data = await linkedin_auth_service.get_linkedin_user(access_token)
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error("[LinkedIn] Unexpected error during auth: %s", exc)
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc))
 
     user = await auth_service.get_or_create_user(
         db=db,
