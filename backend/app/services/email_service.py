@@ -10,7 +10,7 @@ logger = logging.getLogger("locavio")
 def _send_email_sync(to_email: str, subject: str, body: str) -> None:
     """Synchronous function to send an email using SMTP."""
     
-    # You need to define these in your .env file or config!
+    # You need to define these in your ...env file or config!
     smtp_server = getattr(settings, "SMTP_SERVER", "smtp.gmail.com")
     smtp_port = getattr(settings, "SMTP_PORT", 587)
     smtp_username = getattr(settings, "SMTP_USERNAME", None)
