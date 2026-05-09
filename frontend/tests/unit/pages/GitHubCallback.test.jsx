@@ -76,7 +76,7 @@ describe('GitHubCallback', () => {
     githubLogin.mockResolvedValueOnce({ user: { id: 1 }, access_token: 'tok' })
     renderPage()
     await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('/dashboard', { replace: true }))
-    expect(githubLogin).toHaveBeenCalledWith('abc', 'http://localhost/auth/github/callback')
+    expect(githubLogin).toHaveBeenCalledWith('abc', `${window.location.origin}/auth/github/callback`)
   })
 
   it('navigates to login with github_failed on token exchange error with detail', async () => {
