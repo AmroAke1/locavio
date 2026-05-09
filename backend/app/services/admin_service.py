@@ -111,6 +111,12 @@ async def get_dashboard_stats(db: AsyncSession) -> dict:
     }
 
 
+async def delete_user(db: AsyncSession, user: User) -> None:
+    """Delete a user (admin action)."""
+    await db.delete(user)
+    await db.commit()
+
+
 async def list_itineraries(
     db: AsyncSession,
     skip: int = 0,

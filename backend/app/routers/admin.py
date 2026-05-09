@@ -59,6 +59,24 @@ async def get_stats(
     return await admin_service.get_dashboard_stats(db)
 
 
+@router.delete("/users/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_user(
+    user_id: int,
+    admin: User = Depends(get_current_active_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    """Delete a user. Admins cannot delete their own account."""
+    if user_id == admin.id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="You cannot delete your own account",
+        )
+    user = await admin_service.get_user_by_id(db, user_id)
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    await admin_service.delete_user(db, user)
+
+
 # ── Content Moderation ────────────────────────────────────────────────────────
 
 @router.get("/itineraries", response_model=list[ItineraryResponse])
