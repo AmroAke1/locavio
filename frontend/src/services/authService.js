@@ -3,17 +3,17 @@ import api from './api'
 export const googleLogin = (token) =>
   api.post('/auth/google', { token }).then((r) => r.data)
 
-export const getLinkedinAuthUrl = () =>
-  api.get('/auth/linkedin/url').then((r) => r.data)
+export const getLinkedinAuthUrl = (redirectUri) =>
+  api.get('/auth/linkedin/url', { params: { redirect_uri: redirectUri } }).then((r) => r.data)
 
-export const linkedinLogin = (code) =>
-  api.post('/auth/linkedin', { code }).then((r) => r.data)
+export const linkedinLogin = (code, redirectUri) =>
+  api.post('/auth/linkedin', { code, redirect_uri: redirectUri }).then((r) => r.data)
 
-export const getGithubAuthUrl = () =>
-  api.get('/auth/github/url').then((r) => r.data)
+export const getGithubAuthUrl = (redirectUri) =>
+  api.get('/auth/github/url', { params: { redirect_uri: redirectUri } }).then((r) => r.data)
 
-export const githubLogin = (code) =>
-  api.post('/auth/github', { code }).then((r) => r.data)
+export const githubLogin = (code, redirectUri) =>
+  api.post('/auth/github', { code, redirect_uri: redirectUri }).then((r) => r.data)
 
 export const emailLogin = (email, password) =>
   api.post('/auth/login', { email, password }).then((r) => r.data)

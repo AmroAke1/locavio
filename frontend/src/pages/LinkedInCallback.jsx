@@ -39,7 +39,9 @@ function LinkedInCallback() {
       return
     }
 
-    linkedinLogin(code)
+    const redirectUri = `${window.location.origin}/auth/linkedin/callback`
+
+    linkedinLogin(code, redirectUri)
       .then((data) => {
         console.log('[LinkedIn] Login successful')
         login(data.user, data.access_token)

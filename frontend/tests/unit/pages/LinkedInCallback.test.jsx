@@ -63,6 +63,7 @@ describe('LinkedInCallback', () => {
     renderPage()
     expect(screen.getByText(/Signing you in/i)).toBeTruthy()
     await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('/dashboard', { replace: true }))
+    expect(linkedinLogin).toHaveBeenCalledWith('abc', 'http://localhost/auth/linkedin/callback')
   })
 
   it('navigates to login with linkedin_failed on token exchange error', async () => {

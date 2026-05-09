@@ -37,7 +37,9 @@ function GitHubCallback() {
       return
     }
 
-    githubLogin(code)
+    const redirectUri = `${window.location.origin}/auth/github/callback`
+
+    githubLogin(code, redirectUri)
       .then((data) => {
         console.log('[GitHub] Login successful')
         login(data.user, data.access_token)
