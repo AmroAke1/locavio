@@ -8,13 +8,13 @@ from app.core.config import settings
 logger = logging.getLogger("locavio")
 
 
-def _redirect_uri() -> str:
-    return f"{settings.FRONTEND_URL}/auth/linkedin/callback"
+def _redirect_uri(redirect_uri: str | None = None) -> str:
+    return redirect_uri or f"{settings.FRONTEND_URL}/auth/linkedin/callback"
 
 
-async def exchange_code_for_token(code: str) -> str:
+async def exchange_code_for_token(code: str, redirect_uri: str | None = None) -> str:
     """Exchange a LinkedIn authorization code for an access token."""
-    redirect_uri = _redirect_uri()
+    redirect_uri = _redirect_uri(redirect_uri)
     logger.info("[LinkedIn] Starting token exchange — code_prefix=%s redirect_uri=%s", code[:8], redirect_uri)
 
     async with httpx.AsyncClient() as client:

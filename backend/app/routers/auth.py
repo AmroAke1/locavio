@@ -43,6 +43,7 @@ class EmailLoginRequest(BaseModel):
 
 class CodeRequest(BaseModel):
     code: str
+    redirect_uri: str | None = None
 
 
 class AuthResponse(BaseModel):
@@ -200,12 +201,12 @@ async def disable_2fa(
 # ── LinkedIn OAuth ────────────────────────────────────────────────────────────
 
 @router.get("/linkedin/url")
-async def linkedin_auth_url():
+async def linkedin_auth_url(redirect_uri: str | None = None):
     """Return the LinkedIn OAuth authorization URL."""
     params = urlencode({
         "response_type": "code",
         "client_id": settings.LINKEDIN_CLIENT_ID,
-        "redirect_uri": f"{settings.FRONTEND_URL}/auth/linkedin/callback",
+        "redirect_uri": redirect_uri or f"{settings.FRONTEND_URL}/auth/linkedin/callback",
         "scope": "openid profile email",
     }, quote_via=__import__('urllib.parse', fromlist=['quote']).quote)
     return {"url": f"https://www.linkedin.com/oauth/v2/authorization?{params}"}
@@ -216,7 +217,7 @@ async def linkedin_auth_url():
 async def linkedin_auth(request: Request, body: CodeRequest, db: AsyncSession = Depends(get_db)):
     """Authenticate a user via LinkedIn authorization code exchange."""
     try:
-        access_token = await linkedin_auth_service.exchange_code_for_token(body.code)
+        access_token = await linkedin_auth_service.exchange_code_for_token(body.code, body.redirect_uri)
         linkedin_data = await linkedin_auth_service.get_linkedin_user(access_token)
     except HTTPException:
         raise
@@ -239,11 +240,11 @@ async def linkedin_auth(request: Request, body: CodeRequest, db: AsyncSession = 
 # ── GitHub OAuth ─────────────────────────────────────────────────────────────
 
 @router.get("/github/url")
-async def github_auth_url():
+async def github_auth_url(redirect_uri: str | None = None):
     """Return the GitHub OAuth authorization URL."""
     params = urlencode({
         "client_id": settings.GITHUB_CLIENT_ID,
-        "redirect_uri": f"{settings.FRONTEND_URL}/auth/github/callback",
+        "redirect_uri": redirect_uri or f"{settings.FRONTEND_URL}/auth/github/callback",
         "scope": "user:email",
     }, quote_via=__import__('urllib.parse', fromlist=['quote']).quote)
     return {"url": f"https://github.com/login/oauth/authorize?{params}"}
@@ -254,7 +255,7 @@ async def github_auth_url():
 async def github_auth(request: Request, body: CodeRequest, db: AsyncSession = Depends(get_db)):
     """Authenticate a user via GitHub authorization code exchange."""
     try:
-        access_token = await github_auth_service.exchange_code_for_token(body.code)
+        access_token = await github_auth_service.exchange_code_for_token(body.code, body.redirect_uri)
         github_data = await github_auth_service.get_github_user(access_token)
     except HTTPException:
         raise
