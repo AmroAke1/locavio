@@ -70,3 +70,43 @@ async def test_linkedin_auth_with_valid_code_returns_200(test_client):
         resp = await test_client.post("/api/v1/auth/linkedin", json={"code": "valid-code"})
     assert resp.status_code == 200
     assert "access_token" in resp.json()
+
+
+@pytest.mark.asyncio
+async def test_github_url_endpoint_returns_url(test_client):
+    resp = await test_client.get("/api/v1/auth/github/url")
+    assert resp.status_code == 200
+    assert "url" in resp.json()
+    assert "github.com" in resp.json()["url"]
+
+
+@pytest.mark.asyncio
+async def test_github_auth_with_valid_code_returns_200(test_client):
+    github_data = {
+        "email": f"gh-{uuid.uuid4().hex[:8]}@example.com",
+        "name": "GitHub User",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1",
+    }
+    with patch(
+        "app.routers.auth.github_auth_service.exchange_code_for_token",
+        new=AsyncMock(return_value="mock-gh-token"),
+    ), patch(
+        "app.routers.auth.github_auth_service.get_github_user",
+        new=AsyncMock(return_value=github_data),
+    ):
+        resp = await test_client.post("/api/v1/auth/github", json={"code": "valid-gh-code"})
+    assert resp.status_code == 200
+    data = resp.json()
+    assert "access_token" in data
+    assert data["user"]["auth_provider"] == "github"
+
+
+@pytest.mark.asyncio
+async def test_github_auth_with_bad_code_returns_401(test_client):
+    from fastapi import HTTPException, status as http_status
+    with patch(
+        "app.routers.auth.github_auth_service.exchange_code_for_token",
+        new=AsyncMock(side_effect=HTTPException(status_code=http_status.HTTP_401_UNAUTHORIZED, detail="bad code")),
+    ):
+        resp = await test_client.post("/api/v1/auth/github", json={"code": "bad-code"})
+    assert resp.status_code == 401
