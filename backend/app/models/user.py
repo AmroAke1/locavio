@@ -10,6 +10,7 @@ from app.core.database import Base
 class AuthProvider(str, enum.Enum):
     google = "google"
     linkedin = "linkedin"
+    github = "github"
     email = "email"
 
 

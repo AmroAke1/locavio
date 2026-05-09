@@ -6,12 +6,15 @@ import { useAuth } from '@/hooks/useAuth'
 import { verify2FA } from '@/services/authService'
 import GoogleLoginButton from '@/components/auth/GoogleLoginButton'
 import LinkedInLoginButton from '@/components/auth/LinkedInLoginButton'
+import GitHubLoginButton from '@/components/auth/GitHubLoginButton'
 import { ShieldCheck } from 'lucide-react'
 
-const LINKEDIN_ERROR_MESSAGES = {
+const OAUTH_ERROR_MESSAGES = {
   linkedin_denied: 'LinkedIn sign-in was cancelled.',
   linkedin_failed: 'LinkedIn sign-in failed. Please try again.',
-  invalid_state: 'LinkedIn sign-in failed (security check). Please try again.',
+  github_denied: 'GitHub sign-in was cancelled.',
+  github_failed: 'GitHub sign-in failed. Please try again.',
+  invalid_state: 'Sign-in failed (security check). Please try again.',
 }
 
 function Login() {
@@ -27,7 +30,7 @@ function Login() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState(() => {
     const errParam = searchParams.get('error')
-    return LINKEDIN_ERROR_MESSAGES[errParam] || ''
+    return OAUTH_ERROR_MESSAGES[errParam] || ''
   })
   const [loading, setLoading] = useState(false)
 
@@ -161,6 +164,7 @@ function Login() {
             <div className="flex-1 h-px bg-accent/40" />
           </div>
           <LinkedInLoginButton />
+          <GitHubLoginButton />
         </div>
 
         <div className="flex items-center gap-3 w-full">

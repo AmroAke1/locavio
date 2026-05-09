@@ -9,6 +9,12 @@ export const getLinkedinAuthUrl = () =>
 export const linkedinLogin = (code) =>
   api.post('/auth/linkedin', { code }).then((r) => r.data)
 
+export const getGithubAuthUrl = () =>
+  api.get('/auth/github/url').then((r) => r.data)
+
+export const githubLogin = (code) =>
+  api.post('/auth/github', { code }).then((r) => r.data)
+
 export const emailLogin = (email, password) =>
   api.post('/auth/login', { email, password }).then((r) => r.data)
 

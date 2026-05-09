@@ -14,6 +14,8 @@ class Settings(BaseSettings):
     GOOGLE_CLIENT_ID: str = ""
     LINKEDIN_CLIENT_ID: str = ""
     LINKEDIN_CLIENT_SECRET: str = ""
+    GITHUB_CLIENT_ID: str = ""
+    GITHUB_CLIENT_SECRET: str = ""
     FRONTEND_URL: str = "http://localhost:5173"
 
     GEMINI_API_KEY: str = ""

@@ -17,7 +17,7 @@ from app.core.security import (
 )
 from app.models.user import AuthProvider, User
 from app.schemas.user import UserResponse
-from app.services import auth_service, linkedin_auth_service, email_service
+from app.services import auth_service, linkedin_auth_service, github_auth_service, email_service
 
 logger = logging.getLogger("locavio")
 
@@ -230,6 +230,44 @@ async def linkedin_auth(request: Request, body: CodeRequest, db: AsyncSession = 
         name=linkedin_data["name"],
         avatar_url=linkedin_data["avatar_url"],
         auth_provider=AuthProvider.linkedin,
+    )
+
+    token = create_access_token({"sub": str(user.id), "role": user.role.value})
+    return AuthResponse(access_token=token, user=UserResponse.model_validate(user))
+
+
+# ── GitHub OAuth ─────────────────────────────────────────────────────────────
+
+@router.get("/github/url")
+async def github_auth_url():
+    """Return the GitHub OAuth authorization URL."""
+    params = urlencode({
+        "client_id": settings.GITHUB_CLIENT_ID,
+        "redirect_uri": f"{settings.FRONTEND_URL}/auth/github/callback",
+        "scope": "user:email",
+    }, quote_via=__import__('urllib.parse', fromlist=['quote']).quote)
+    return {"url": f"https://github.com/login/oauth/authorize?{params}"}
+
+
+@router.post("/github", response_model=AuthResponse)
+@limiter.limit("5/minute")
+async def github_auth(request: Request, body: CodeRequest, db: AsyncSession = Depends(get_db)):
+    """Authenticate a user via GitHub authorization code exchange."""
+    try:
+        access_token = await github_auth_service.exchange_code_for_token(body.code)
+        github_data = await github_auth_service.get_github_user(access_token)
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error("[GitHub] Unexpected error during auth: %s", exc)
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc))
+
+    user = await auth_service.get_or_create_user(
+        db=db,
+        email=github_data["email"],
+        name=github_data["name"],
+        avatar_url=github_data["avatar_url"],
+        auth_provider=AuthProvider.github,
     )
 
     token = create_access_token({"sub": str(user.id), "role": user.role.value})
